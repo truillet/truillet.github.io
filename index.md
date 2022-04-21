@@ -1,37 +1,11 @@
-## Welcome to GitHub Pages
+I am "Maître de conférences" (tenure position between "associate professor" and "senior professor") in Computer Science since 2001 at the University of Toulouse (France). I am mainly teaching on the University Paul Sabatier campus where I am also Director of Studies at UPSSITECH engineering school.
+From March to July 2014, I was an invited Professor at University of Applied Sciences Ostfalia, Wolfenbüttel (Germany).
+Previously, I worked at DTI R&D at DGAC as a researcher from 1999 to 2001, at Toulouse 3 and Toulouse 1 universities as a assistant professor (1997-1999).
 
-You can use the [editor on GitHub](https://github.com/truillet/truillet.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+My current research focuses on modeling, design and development of "advanced interactive systems" -speech, gesture, tactile, tangible- interaction, mixed reality, etc. in complex situations (especially in the field of disability -blindness and motor disabilities-). I'm also very interesting in DIY (Do-It Yourself) field as support for creativity and innovation for research.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+##  Contact
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/truillet/truillet.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+* Email: Philippe.Truillet "at" univ-tlse3.fr
+* Phone: +33 (zero) 561 557 408
