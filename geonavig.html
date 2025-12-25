@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+  <script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            alert("Geolocation is not supported by this browser.");
+        }
+
+    }
+    function showPosition(position) {
+        document.getElementById('idLatitude').value = position.coords.latitude;
+        document.getElementById('idLongitude').value = position.coords.longitude;
+
+    }
+    </script>
+
+</head>
+<body onload="getLocation()">
+<form action="HelloWorld" method="post">
+    <input id="idLatitude"  type="text" name="strLatitude">
+    <input id="idLongitude" type="text" name="strLongitude">
+
+</form>
+</body>
+</html>
