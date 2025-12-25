@@ -5,68 +5,64 @@
   <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 10px;
+      font-family: sans-serif;
+      padding: 12px;
     }
     button {
-      padding: 10px 14px;
-      font-size: 14px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
       cursor: pointer;
     }
-    .status {
+    .info {
       margin-top: 10px;
-      font-size: 13px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
-  <button id="geoBtn">📍 Me géolocaliser</button>
-  <div class="status" id="status"></div>
+<button id="geo">📍 Localiser ce formulaire</button>
+<div class="info" id="info"></div>
 
-  <script>
-    let gristReady = false;
+<script>
+  grist.ready({
+    requiredAccess: "write",
+    columns: ["Latitude", "Longitude", "Adresse"]
+  });
 
-    grist.ready({
-      requiredAccess: 'write',
-      columns: ['Latitude', 'Longitude', 'Adresse']
-    });
+  const info = document.getElementById("info");
 
-    document.getElementById('geoBtn').onclick = () => {
-      const status = document.getElementById('status');
+  document.getElementById("geo").onclick = () => {
+    if (!navigator.geolocation) {
+      info.textContent = "❌ Géolocalisation non disponible";
+      return;
+    }
 
-      if (!navigator.geolocation) {
-        status.textContent = "❌ Géolocalisation non supportée";
-        return;
-      }
+    info.textContent = "⏳ Localisation en cours…";
 
-      status.textContent = "⏳ Localisation en cours…";
+    navigator.geolocation.getCurrentPosition(
+      async pos => {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
 
-      navigator.geolocation.getCurrentPosition(
-        async position => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
+        // Écriture dans la ligne du formulaire en cours
+        await grist.setRow({
+          Latitude: lat,
+          Longitude: lon
+        });
 
-          // Écriture dans la ligne courante
-          await grist.setCursorPos({});
-
-          await grist.setRow({
-            Latitude: lat,
-            Longitude: lon
-          });
-
-          status.textContent = `✅ Position enregistrée : ${lat.toFixed(5)}, ${lon.toFixed(5)}`;
-        },
-        error => {
-          status.textContent = "❌ Impossible de récupérer la position";
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000
-        }
-      );
-    };
-  </script>
+        info.textContent =
+          `✅ Position enregistrée\n(${lat.toFixed(5)}, ${lon.toFixed(5)})`;
+      },
+      () => {
+        info.textContent = "❌ Autorisation refusée ou erreur GPS";
+      },
+      { enableHighAccuracy: true }
+    );
+  };
+</script>
 
 </body>
 </html>
