@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+    }
+    button {
+      padding: 10px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .status {
+      margin-top: 10px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="geoBtn">📍 Me géolocaliser</button>
+  <div class="status" id="status"></div>
+
+  <script>
+    let gristReady = false;
+
+    grist.ready({
+      requiredAccess: 'write',
+      columns: ['Latitude', 'Longitude', 'Adresse']
+    });
+
+    document.getElementById('geoBtn').onclick = () => {
+      const status = document.getElementById('status');
+
+      if (!navigator.geolocation) {
+        status.textContent = "❌ Géolocalisation non supportée";
+        return;
+      }
+
+      status.textContent = "⏳ Localisation en cours…";
+
+      navigator.geolocation.getCurrentPosition(
+        async position => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+
+          // Écriture dans la ligne courante
+          await grist.setCursorPos({});
+
+          await grist.setRow({
+            Latitude: lat,
+            Longitude: lon
+          });
+
+          status.textContent = `✅ Position enregistrée : ${lat.toFixed(5)}, ${lon.toFixed(5)}`;
+        },
+        error => {
+          status.textContent = "❌ Impossible de récupérer la position";
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000
+        }
+      );
+    };
+  </script>
+
+</body>
+</html>
