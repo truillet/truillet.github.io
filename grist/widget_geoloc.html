@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+  <style>
+    body { font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+    button { 
+      background-color: #16a085; color: white; border: none; padding: 10px 20px; 
+      border-radius: 4px; cursor: pointer; font-weight: bold; 
+    }
+    button:disabled { background-color: #bdc3c7; }
+    #status { font-size: 12px; margin-top: 5px; color: #7f8c8d; }
+  </style>
+</head>
+<body>
+  <div style="text-align: center;">
+    <button id="geoBtn">📍 Enregistrer ma position</button>
+    <div id="status"></div>
+  </div>
+
+  <script>
+    const btn = document.getElementById('geoBtn');
+    const status = document.getElementById('status');
+
+    // Initialise l'API Grist
+    grist.ready({
+      requiredAccess: 'full' // Nécessaire pour écrire dans la table
+    });
+
+    btn.addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        status.innerText = "La géolocalisation n'est pas supportée.";
+        return;
+      }
+
+      btn.disabled = true;
+      status.innerText = "Recherche en cours...";
+
+      navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        // Met à jour l'enregistrement sélectionné dans Grist
+        grist.setRecords([
+          { 
+            id: grist.selectedRecordId, 
+            fields: { Latitude: lat, Longitude: lng } 
+          }
+        ]).then(() => {
+          status.innerText = "✅ Position enregistrée !";
+          btn.disabled = false;
+        }).catch(err => {
+          status.innerText = "Erreur lors de l'enregistrement.";
+          console.error(err);
+          btn.disabled = false;
+        });
+
+      }, (error) => {
+        status.innerText = "Erreur GPS : " + error.message;
+        btn.disabled = false;
+      });
+    });
+  </script>
+</body>
+</html>
