@@ -8,5 +8,6 @@ My current research focuses on modeling, design and development of "advanced int
 
 ##  Contact
 
-* **Email**: Philippe.Truillet "at" univ-tlse3.fr
+* **Email**: Philippe.Truillet "at" utoulouse.fr
 * **Phone**: +33 (zero) 561 557 408
+* **[LinkedIn](https://www.linkedin.com/in/truillet)** : 
